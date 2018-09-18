@@ -524,7 +524,7 @@ export interface IProfile {
     /**
      * 性別。
      */
-    gender: IGender;
+    gender: IGender | undefined;
     /**
      * 血液型
      */
@@ -532,7 +532,7 @@ export interface IProfile {
     /**
      * 誕生日。
      */
-    birthday: Date;
+    birthday: Date | undefined;
     /**
      * 年齢層上限
      */
@@ -544,7 +544,7 @@ export interface IProfile {
     /**
      * 交際状況。
      */
-    relationshipStatus: IRelationshipStatus;
+    relationshipStatus: IRelationshipStatus | undefined;
     /**
      * 居住地。
      */
@@ -556,7 +556,7 @@ export interface IProfile {
     /**
      * 居住地 JIS 都道府県・市区町村コード。
      */
-    locationJisId: number;
+    locationJisId: number | undefined;
     /**
      * 郵便番号。
      */
@@ -584,7 +584,7 @@ export interface IProfile {
     /**
      * 出身地 JIS 都道府県・市区町村コード。
      */
-    hometownJisId: number;
+    hometownJisId: number | undefined;
     /**
      * 卒業学校名。
      */
@@ -608,11 +608,11 @@ export interface IProfile {
     /**
      * ソーシャルプロバイダ別プロフィールURL。
      */
-    uri: string[];
+    uri: string[] | undefined;
     /**
      * ホームページ。
      */
-    website: string[];
+    website: string[] | undefined;
     /**
      * 好きな言葉。Facebook のみ。
      */
@@ -628,11 +628,11 @@ export interface IProfile {
     /**
      * 最終更新日時。
      */
-    lastUpdatedAt: Date;
+    lastUpdatedAt: Date | undefined;
     /**
      * 初回ログインからの日数。
      */
-    updateCount: number;
+    updateCount: number | undefined;
 }
 
 export interface IEmail {

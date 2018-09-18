@@ -218,6 +218,20 @@ export class AccountService extends Service {
         const result: factory.IProfileAPIOut = await this.request(options);
         debug('result...', result);
 
+        // check profile
+        let profile: any = {};
+        let birthday: any = '';
+        let last_updated_at: any = '';
+        if (result.profile !== null) {
+            profile = result.profile;
+            if (profile.birthday !== null) {
+                birthday = profile.birthday;
+            }
+            if (profile.last_updated_at !== null) {
+                last_updated_at = profile.last_updated_at;
+            }
+        }
+
         return {
             status: result.status,
             user: {
@@ -231,48 +245,48 @@ export class AccountService extends Service {
                 profileProhibited: result.user.profile_prohibited
             },
             profile: {
-                firstName: result.profile.first_name,
-                firstNameKana: result.profile.first_name_kana,
-                firstNameKanji: result.profile.first_name_kanji,
-                middleName: result.profile.middle_name,
-                middleNameKana: result.profile.middle_name_kana,
-                middleNameKanji: result.profile.middle_name_kanji,
-                lastName: result.profile.last_name,
-                lastNameKana: result.profile.last_name_kana,
-                lastNameKanji: result.profile.last_name_kanji,
-                fullName: result.profile.full_name,
-                fullNameKana: result.profile.full_name_kana,
-                fullNameKanji: result.profile.full_name_kanji,
-                userName: result.profile.user_name,
-                verified: result.profile.verified,
-                gender: result.profile.gender,
-                bloodType: result.profile.blood_type,
-                birthday: new Date(result.profile.birthday),
-                ageRangeMax: result.profile.age_range_max,
-                ageRangeMin: result.profile.age_range_min,
-                relationshipStatus: result.profile.relationship_status,
-                location: result.profile.location,
-                locationId: result.profile.location_id,
-                locationJisId: result.profile.location_jis_id,
-                postalCode: result.profile.postal_code,
-                prefecture: result.profile.prefecture,
-                city: result.profile.city,
-                street: result.profile.street,
-                hometown: result.profile.hometown,
-                hometownId: result.profile.hometown_id,
-                hometownJisId: result.profile.hometown_jis_id,
-                graduatedSchool: result.profile.graduated_school,
-                graduatedSchoolType: result.profile.graduated_school_type,
-                graduatedYear: result.profile.graduated_year,
-                jobCompany: result.profile.job_company,
-                jobPosition: result.profile.job_position,
-                uri: result.profile.uri,
-                website: result.profile.website,
-                quotes: result.profile.quotes,
-                bio: result.profile.bio,
-                imageUrl: result.profile.image_url,
-                lastUpdatedAt: new Date(result.profile.last_updated_at),
-                updateCount: result.profile.update_count
+                firstName: (profile !== null) ? profile.first_name:undefined,
+                firstNameKana: (profile !== null) ? profile.first_name_kana:undefined,
+                firstNameKanji: (profile !== null) ? profile.first_name_kanji:undefined,
+                middleName: (profile !== null) ? profile.middle_name:undefined,
+                middleNameKana: (profile !== null) ? profile.middle_name_kana:undefined,
+                middleNameKanji: (profile !== null) ? profile.middle_name_kanji:undefined,
+                lastName: (profile !== null) ? profile.last_name:undefined,
+                lastNameKana: (profile !== null) ? profile.last_name_kana:undefined,
+                lastNameKanji: (profile !== null) ? profile.last_name_kanji:undefined,
+                fullName: (profile !== null) ? profile.full_name:undefined,
+                fullNameKana: (profile !== null) ? profile.full_name_kana:undefined,
+                fullNameKanji: (profile !== null) ? profile.full_name_kanji:undefined,
+                userName: (profile !== null) ? profile.user_name:undefined,
+                verified: (profile !== null) ? profile.verified:undefined,
+                gender: (profile !== null) ? profile.gender:undefined,
+                bloodType: (profile !== null) ? profile.blood_type:undefined,
+                birthday: (birthday !== null) ? new Date(birthday):undefined,
+                ageRangeMax: (profile !== null) ? profile.age_range_max:null,
+                ageRangeMin: (profile !== null) ? profile.age_range_min:null,
+                relationshipStatus: (profile !== null) ? profile.relationship_status:null,
+                location: (profile !== null) ? profile.location:null,
+                locationId: (profile !== null) ? profile.location_id:null,
+                locationJisId: (profile !== null) ? profile.location_jis_id:null,
+                postalCode: (profile !== null) ? profile.postal_code:undefined,
+                prefecture: (profile !== null) ? profile.prefecture:undefined,
+                city: (profile !== null) ? profile.city:undefined,
+                street: (profile !== null) ? profile.street:undefined,
+                hometown: (profile !== null) ? profile.hometown:undefined,
+                hometownId: (profile !== null) ? profile.hometown_id:undefined,
+                hometownJisId: (profile !== null) ? profile.hometown_jis_id:undefined,
+                graduatedSchool: (profile !== null) ? profile.graduated_school:undefined,
+                graduatedSchoolType: (profile !== null) ? profile.graduated_school_type:undefined,
+                graduatedYear: (profile !== null) ? profile.graduated_year:undefined,
+                jobCompany: (profile !== null) ? profile.job_company:undefined,
+                jobPosition: (profile !== null) ? profile.job_position:undefined,
+                uri: (profile !== null) ? profile.uri:undefined,
+                website: (profile !== null) ? profile.website:undefined,
+                quotes: (profile !== null) ? profile.quotes:undefined,
+                bio: (profile !== null) ? profile.bio:undefined,
+                imageUrl: (profile !== null) ? profile.image_url:undefined,
+                lastUpdatedAt: (last_updated_at !== null) ? new Date(last_updated_at):undefined,
+                updateCount: (profile !== null) ? profile.update_count:undefined
             },
             follow: {
                 followedBy: result.follow.followed_by,
