@@ -3,6 +3,7 @@ import { OK } from 'http-status';
 
 import * as factory from '../factory/account.factory';
 import { Service } from '../service';
+import { checkForDate, checkNull } from './common';
 
 const debug = createDebug('social-plus:service');
 
@@ -208,29 +209,15 @@ export class AccountService extends Service {
         if (args.deleteProfile !== undefined) {
             qs.delete_profile = args.deleteProfile.toString();
         }
-
         const options = {
             expectedStatusCodes: [OK],
-            uri: '/api/profile',
-            method: 'GET',
-            qs
+            uri: '/api/profile', method: 'GET', qs
         };
         const result: factory.IProfileAPIOut = await this.request(options);
         debug('result...', result);
-
-        // check profile
-        let profile: any = {};
-        let birthday: any = '';
-        let last_updated_at: any = '';
-        if (result.profile !== null) {
-            profile = result.profile;
-            if (profile.birthday !== null) {
-                birthday = profile.birthday;
-            }
-            if (profile.last_updated_at !== null) {
-                last_updated_at = profile.last_updated_at;
-            }
-        }
+        const profile: any = checkNull(result.profile, result.profile);
+        const birthday: string = checkNull(profile, profile.birthday);
+        const lastUpdatedAt: string = checkNull(profile, profile.last_updated_at);
 
         return {
             status: result.status,
@@ -245,48 +232,48 @@ export class AccountService extends Service {
                 profileProhibited: result.user.profile_prohibited
             },
             profile: {
-                firstName: (profile !== null) ? profile.first_name:undefined,
-                firstNameKana: (profile !== null) ? profile.first_name_kana:undefined,
-                firstNameKanji: (profile !== null) ? profile.first_name_kanji:undefined,
-                middleName: (profile !== null) ? profile.middle_name:undefined,
-                middleNameKana: (profile !== null) ? profile.middle_name_kana:undefined,
-                middleNameKanji: (profile !== null) ? profile.middle_name_kanji:undefined,
-                lastName: (profile !== null) ? profile.last_name:undefined,
-                lastNameKana: (profile !== null) ? profile.last_name_kana:undefined,
-                lastNameKanji: (profile !== null) ? profile.last_name_kanji:undefined,
-                fullName: (profile !== null) ? profile.full_name:undefined,
-                fullNameKana: (profile !== null) ? profile.full_name_kana:undefined,
-                fullNameKanji: (profile !== null) ? profile.full_name_kanji:undefined,
-                userName: (profile !== null) ? profile.user_name:undefined,
-                verified: (profile !== null) ? profile.verified:undefined,
-                gender: (profile !== null) ? profile.gender:undefined,
-                bloodType: (profile !== null) ? profile.blood_type:undefined,
-                birthday: (birthday !== null) ? new Date(birthday):undefined,
-                ageRangeMax: (profile !== null) ? profile.age_range_max:null,
-                ageRangeMin: (profile !== null) ? profile.age_range_min:null,
-                relationshipStatus: (profile !== null) ? profile.relationship_status:null,
-                location: (profile !== null) ? profile.location:null,
-                locationId: (profile !== null) ? profile.location_id:null,
-                locationJisId: (profile !== null) ? profile.location_jis_id:null,
-                postalCode: (profile !== null) ? profile.postal_code:undefined,
-                prefecture: (profile !== null) ? profile.prefecture:undefined,
-                city: (profile !== null) ? profile.city:undefined,
-                street: (profile !== null) ? profile.street:undefined,
-                hometown: (profile !== null) ? profile.hometown:undefined,
-                hometownId: (profile !== null) ? profile.hometown_id:undefined,
-                hometownJisId: (profile !== null) ? profile.hometown_jis_id:undefined,
-                graduatedSchool: (profile !== null) ? profile.graduated_school:undefined,
-                graduatedSchoolType: (profile !== null) ? profile.graduated_school_type:undefined,
-                graduatedYear: (profile !== null) ? profile.graduated_year:undefined,
-                jobCompany: (profile !== null) ? profile.job_company:undefined,
-                jobPosition: (profile !== null) ? profile.job_position:undefined,
-                uri: (profile !== null) ? profile.uri:undefined,
-                website: (profile !== null) ? profile.website:undefined,
-                quotes: (profile !== null) ? profile.quotes:undefined,
-                bio: (profile !== null) ? profile.bio:undefined,
-                imageUrl: (profile !== null) ? profile.image_url:undefined,
-                lastUpdatedAt: (last_updated_at !== null) ? new Date(last_updated_at):undefined,
-                updateCount: (profile !== null) ? profile.update_count:undefined
+                firstName: checkNull(profile, profile.first_name),
+                firstNameKana: checkNull(profile, profile.first_name_kana),
+                firstNameKanji: checkNull(profile, profile.first_name_kanji),
+                middleName: checkNull(profile, profile.middle_name),
+                middleNameKana: checkNull(profile, profile.middle_name_kana),
+                middleNameKanji: checkNull(profile, profile.middle_name_kanji),
+                lastName: checkNull(profile, profile.last_name),
+                lastNameKana: checkNull(profile, profile.last_name_kana),
+                lastNameKanji: checkNull(profile, profile.last_name_kanji),
+                fullName: checkNull(profile, profile.full_name),
+                fullNameKana: checkNull(profile, profile.full_name_kana),
+                fullNameKanji: checkNull(profile, profile.full_name_kanji),
+                userName: checkNull(profile, profile.user_name),
+                verified: checkNull(profile, profile.verified),
+                gender: checkNull(profile, profile.gender),
+                bloodType: checkNull(profile, profile.blood_type),
+                birthday: checkForDate(birthday),
+                ageRangeMax: checkNull(profile, profile.age_range_max),
+                ageRangeMin: checkNull(profile, profile.age_range_min),
+                relationshipStatus: checkNull(profile, profile.relationship_status),
+                location: checkNull(profile, profile.location),
+                locationId: checkNull(profile, profile.location_id),
+                locationJisId: checkNull(profile, profile.location_jis_id),
+                postalCode: checkNull(profile, profile.postal_code),
+                prefecture: checkNull(profile, profile.prefecture),
+                city: checkNull(profile, profile.city),
+                street: checkNull(profile, profile.street),
+                hometown: checkNull(profile, profile.hometown),
+                hometownId: checkNull(profile, profile.hometown_id),
+                hometownJisId: checkNull(profile, profile.hometown_jis_id),
+                graduatedSchool: checkNull(profile, profile.graduated_school),
+                graduatedSchoolType: checkNull(profile, profile.graduated_school_type),
+                graduatedYear: checkNull(profile, profile.graduated_year),
+                jobCompany: checkNull(profile, profile.job_company),
+                jobPosition: checkNull(profile, profile.job_position),
+                uri: checkNull(profile, profile.uri),
+                website: checkNull(profile, profile.website),
+                quotes: checkNull(profile, profile.quotes),
+                bio: checkNull(profile, profile.bio),
+                imageUrl: checkNull(profile, profile.image_url),
+                lastUpdatedAt: checkForDate(lastUpdatedAt),
+                updateCount: checkNull(profile, profile.update_count)
             },
             follow: {
                 followedBy: result.follow.followed_by,
