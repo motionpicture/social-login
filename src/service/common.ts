@@ -3,10 +3,19 @@
  */
 function checkForDate(data: any): any {
     let result: any = '';
-    if (typeof data === undefined) {
+    try {
+        if (data !== null && data !== undefined) {
+            const timestamp = Date.parse(data);
+            if (isNaN(timestamp) === false) {
+                result = new Date(timestamp);
+            } else {
+                result = undefined;
+            }
+        } else {
+            result = undefined;
+        }
+    } catch (err) {
         result = undefined;
-    } else {
-        result = new Date(data);
     }
 
     return result;
@@ -15,11 +24,15 @@ function checkForDate(data: any): any {
 /**
  * check null
  */
-function checkNull(checker: any, data: any): any {
+function checkNull(data: any): any {
     let result: any = '';
-    if (checker !== null) {
-        result = data;
-    } else {
+    try {
+        if (data !== null && data !== undefined) {
+            result = data;
+        } else {
+            result = undefined;
+        }
+    } catch (err) {
         result = undefined;
     }
 
