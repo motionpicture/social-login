@@ -18,22 +18,22 @@ export interface IAuthenticatedUserArgs {
      * 真の場合はワンタイムトークンを削除しません
      * デバッグ時のみとし、通常は指定しないでください
      */
-    preserveToken?: boolean;
+    preserveToken?: string;
     /**
      * 利用プランが旧 Entry 以上または新 Standard 以上の場合、認証情報に加えて個人情報を返します。
      */
-    addProfile?: boolean;
+    addProfile?: string;
     /**
      * add_profile が真の場合、このパラメータを真で与えると WebAPI 呼び出し後にソーシャル PLUS 側で保存している個人情報を削除します。
      */
-    deleteProfile?: boolean;
+    deleteProfile?: string;
 }
 
 export interface IAuthenticatedUserAPIIn {
     token: string;
-    preserve_token?: boolean;
-    add_profile?: boolean;
-    delete_profile?: boolean;
+    preserve_token?: string;
+    add_profile?: string;
+    delete_profile?: string;
 }
 
 export enum ResponseStatus {
@@ -113,7 +113,7 @@ export interface IAuthenticatedUserAPIOut extends IResultCommon {
 export interface IMapAPIIn {
     identifier: string;
     primary_key: string;
-    overwrite?: boolean;
+    overwrite?: string;
 }
 
 export interface IMapArgs {
@@ -129,7 +129,7 @@ export interface IMapArgs {
     /**
      * すでに紐付け作業が行われている場合はエラーになりますが、overwrite に真を指定すると上書きされます。
      */
-    overwrite?: boolean;
+    overwrite?: string;
 }
 
 export interface IProviderOfUserAPIIn {
@@ -285,14 +285,14 @@ export interface IProfileArgsWithIdentifier extends IIdentifier {
     /**
      * 真の場合、WebAPI 呼び出し後にソーシャル PLUS 側 で保存している個人情報を削除します。
      */
-    deleteProfile?: boolean;
+    deleteProfile?: string;
 }
 
 export interface IProfileArgsWithPrimaryKey extends IPrimaryKey {
     /**
      * 真の場合、WebAPI 呼び出し後にソーシャル PLUS 側 で保存している個人情報を削除します。
      */
-    deleteProfile?: boolean;
+    deleteProfile?: string;
 }
 
 export type IProfileArgs = IProfileArgsWithIdentifier | IProfileArgsWithPrimaryKey;
@@ -733,7 +733,7 @@ export interface IMergeUserAPIIn {
     source_primary_key?: string;
     dest_identifier?: string;
     dest_primary_key?: string;
-    nomerge?: boolean;
+    nomerge?: string;
 }
 
 export interface IMergeUserArgs {
@@ -756,7 +756,7 @@ export interface IMergeUserArgs {
     /**
      * true を指定した場合、処理後に個人情報を更新 しません。
      */
-    nomerge?: boolean;
+    nomerge?: string;
 }
 
 export type IMergeUserAPIOut = IResultCommon;
