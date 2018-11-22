@@ -3,6 +3,7 @@ import { OK } from 'http-status';
 
 import * as factory from '../factory/account.factory';
 import { Service } from '../service';
+import { checkForDate, checkNull } from './common';
 
 const debug = createDebug('social-plus:service');
 
@@ -208,15 +209,14 @@ export class AccountService extends Service {
         if (args.deleteProfile !== undefined) {
             qs.delete_profile = args.deleteProfile.toString();
         }
-
         const options = {
             expectedStatusCodes: [OK],
-            uri: '/api/profile',
-            method: 'GET',
-            qs
+            uri: '/api/profile', method: 'GET', qs
         };
         const result: factory.IProfileAPIOut = await this.request(options);
         debug('result...', result);
+        // check profile
+        const profile: any = (result.profile !== null) ? result.profile : {};
 
         return {
             status: result.status,
@@ -231,48 +231,48 @@ export class AccountService extends Service {
                 profileProhibited: result.user.profile_prohibited
             },
             profile: {
-                firstName: result.profile.first_name,
-                firstNameKana: result.profile.first_name_kana,
-                firstNameKanji: result.profile.first_name_kanji,
-                middleName: result.profile.middle_name,
-                middleNameKana: result.profile.middle_name_kana,
-                middleNameKanji: result.profile.middle_name_kanji,
-                lastName: result.profile.last_name,
-                lastNameKana: result.profile.last_name_kana,
-                lastNameKanji: result.profile.last_name_kanji,
-                fullName: result.profile.full_name,
-                fullNameKana: result.profile.full_name_kana,
-                fullNameKanji: result.profile.full_name_kanji,
-                userName: result.profile.user_name,
-                verified: result.profile.verified,
-                gender: result.profile.gender,
-                bloodType: result.profile.blood_type,
-                birthday: new Date(result.profile.birthday),
-                ageRangeMax: result.profile.age_range_max,
-                ageRangeMin: result.profile.age_range_min,
-                relationshipStatus: result.profile.relationship_status,
-                location: result.profile.location,
-                locationId: result.profile.location_id,
-                locationJisId: result.profile.location_jis_id,
-                postalCode: result.profile.postal_code,
-                prefecture: result.profile.prefecture,
-                city: result.profile.city,
-                street: result.profile.street,
-                hometown: result.profile.hometown,
-                hometownId: result.profile.hometown_id,
-                hometownJisId: result.profile.hometown_jis_id,
-                graduatedSchool: result.profile.graduated_school,
-                graduatedSchoolType: result.profile.graduated_school_type,
-                graduatedYear: result.profile.graduated_year,
-                jobCompany: result.profile.job_company,
-                jobPosition: result.profile.job_position,
-                uri: result.profile.uri,
-                website: result.profile.website,
-                quotes: result.profile.quotes,
-                bio: result.profile.bio,
-                imageUrl: result.profile.image_url,
-                lastUpdatedAt: new Date(result.profile.last_updated_at),
-                updateCount: result.profile.update_count
+                firstName: checkNull(profile, profile.first_name),
+                firstNameKana: checkNull(profile, profile.first_name_kana),
+                firstNameKanji: checkNull(profile, profile.first_name_kanji),
+                middleName: checkNull(profile, profile.middle_name),
+                middleNameKana: checkNull(profile, profile.middle_name_kana),
+                middleNameKanji: checkNull(profile, profile.middle_name_kanji),
+                lastName: checkNull(profile, profile.last_name),
+                lastNameKana: checkNull(profile, profile.last_name_kana),
+                lastNameKanji: checkNull(profile, profile.last_name_kanji),
+                fullName: checkNull(profile, profile.full_name),
+                fullNameKana: checkNull(profile, profile.full_name_kana),
+                fullNameKanji: checkNull(profile, profile.full_name_kanji),
+                userName: checkNull(profile, profile.user_name),
+                verified: checkNull(profile, profile.verified),
+                gender: checkNull(profile, profile.gender),
+                bloodType: checkNull(profile, profile.blood_type),
+                birthday: checkForDate(profile, profile.birthday),
+                ageRangeMax: checkNull(profile, profile.age_range_max),
+                ageRangeMin: checkNull(profile, profile.age_range_min),
+                relationshipStatus: checkNull(profile, profile.relationship_status),
+                location: checkNull(profile, profile.location),
+                locationId: checkNull(profile, profile.location_id),
+                locationJisId: checkNull(profile, profile.location_jis_id),
+                postalCode: checkNull(profile, profile.postal_code),
+                prefecture: checkNull(profile, profile.prefecture),
+                city: checkNull(profile, profile.city),
+                street: checkNull(profile, profile.street),
+                hometown: checkNull(profile, profile.hometown),
+                hometownId: checkNull(profile, profile.hometown_id),
+                hometownJisId: checkNull(profile, profile.hometown_jis_id),
+                graduatedSchool: checkNull(profile, profile.graduated_school),
+                graduatedSchoolType: checkNull(profile, profile.graduated_school_type),
+                graduatedYear: checkNull(profile, profile.graduated_year),
+                jobCompany: checkNull(profile, profile.job_company),
+                jobPosition: checkNull(profile, profile.job_position),
+                uri: checkNull(profile, profile.uri),
+                website: checkNull(profile, profile.website),
+                quotes: checkNull(profile, profile.quotes),
+                bio: checkNull(profile, profile.bio),
+                imageUrl: checkNull(profile, profile.image_url),
+                lastUpdatedAt: checkForDate(profile, profile.last_updated_at),
+                updateCount: checkNull(profile, profile.update_count)
             },
             follow: {
                 followedBy: result.follow.followed_by,
