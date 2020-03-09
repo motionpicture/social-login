@@ -1,6 +1,6 @@
 {
   "name": "@motionpicture/social-login",
-  "version": "1.0.2",
+  "version": "1.0.2-alpha.0",
   "description": "Social Plus API client library for Node.js",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
