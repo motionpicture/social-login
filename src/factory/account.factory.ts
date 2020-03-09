@@ -57,7 +57,11 @@ export enum SocialLoginProvider {
     /**
      * 楽天
      */
-    RakuTen = 'rakuten'
+    RakuTen = 'rakuten',
+    /**
+     * AppleID
+     */
+    Apple = 'apple'
 }
 
 export interface IUser {
