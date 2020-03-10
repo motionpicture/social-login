@@ -62,7 +62,6 @@ jobs:
           name: Generate docs
           command: |
             npm run build
-            npm run doc
   prerelease:
     docker:
       - image: circleci/node:lts
