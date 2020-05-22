@@ -288,7 +288,7 @@ export class AccountService extends Service {
                 verified: phone.verified,
                 mediaId: phone.media_id,
                 type: phone.type
-            })),
+            }))
         };
     }
 
