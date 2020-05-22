@@ -289,12 +289,6 @@ export class AccountService extends Service {
                 mediaId: phone.media_id,
                 type: phone.type
             })),
-            favorite: result.favorite.map((fav) => ({
-                category: fav.category,
-                name: fav.name,
-                mediaId: fav.media_id,
-                itemType: fav.item_type
-            }))
         };
     }
 

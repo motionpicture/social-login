@@ -725,7 +725,6 @@ export interface IProfileResult extends IResultCommon {
     };
     email: IEmail[];
     phone: IPhone[];
-    favorite: IFavorite[];
 }
 
 export interface IMergeUserAPIIn {
