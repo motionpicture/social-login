@@ -1,6 +1,6 @@
 {
   "name": "@motionpicture/social-login",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Social Plus API client library for Node.js",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -19,10 +19,10 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "tsc",
-    "check": "npm run tslint && npm audit",
+    "check": "npm run tslint",
     "clean": "rimraf \"src/**/*.js ./lib test/**/*.js npm-debug.log* ./doc ./coverage ./.nyc_output\"",
     "doc": "jsdoc -c jsdoc.json",
-    "mocha": "mocha",
+    "mocha": "mocha --watch-extensions ts -w --require espower-typescript/guess test/**/*.ts",
     "nyc": "nyc mocha \"src/**/*.spec.ts\"",
     "coverage": "npm run nyc | coveralls",
     "snyk": "snyk wizard",
